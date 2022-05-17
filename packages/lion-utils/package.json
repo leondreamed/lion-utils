@@ -1,7 +1,7 @@
 {
 	"name": "lion-utils",
 	"version": "0.0.0",
-	"description": "Some tiny but useful utility functions.",
+	"description": "Tiny and useful utility functions.",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
