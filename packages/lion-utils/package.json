@@ -21,8 +21,9 @@
 		"start": "node-ts ./src/index.ts"
 	},
 	"devDependencies": {
+		"desm": "^1.2.0",
 		"execa": "^6.1.0",
-		"vitest": "latest"
+		"vitest": "^0.12.6"
 	},
 	"dependencies": {
 		"pkg-up": "^4.0.0"
