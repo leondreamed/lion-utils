@@ -5,11 +5,11 @@ importers:
   .:
     specifiers:
       '@types/node': ^17.0.34
-      lionconfig: ^1.7.2
+      lionconfig: ^1.7.3
       typescript: ^4.6.4
     devDependencies:
       '@types/node': 17.0.34
-      lionconfig: 1.7.2_typescript@4.6.4
+      lionconfig: 1.7.3_typescript@4.6.4
       typescript: 4.6.4
 
   packages/lion-utils:
@@ -4092,8 +4092,8 @@ packages:
       - typescript
     dev: true
 
-  /lionconfig/1.7.2_typescript@4.6.4:
-    resolution: {integrity: sha512-22wGaXKo1D9qfXN1xnpQ3qMenEnbsltWd4daJbiFvTxcjX/uOafp+k/aLpCf9xzYPcy0gfMFU4ANIuBgDe93YA==}
+  /lionconfig/1.7.3_typescript@4.6.4:
+    resolution: {integrity: sha512-3/N9RArPKjzkLzYhjT/o0t6IDQuP0CuDn75Ur+BY/3N2Vd+8vi9Uzw0esTKXWY1wvF4IxpeEMtaS3PmaRNJnJQ==}
     hasBin: true
     requiresBuild: true
     dependencies:
