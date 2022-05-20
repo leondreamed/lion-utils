@@ -37,20 +37,18 @@ export function getProjectDir(
 	pathUrl: string,
 	options?: GetProjectDirOptions
 ): string {
+	pathUrl = pathUrl.startsWith('file://') ? fileURLToPath(pathUrl) : pathUrl;
+
 	// If pnpm-lock.yaml doesn't exist in the directory, continue checking in the above directory
 	if (options?.monorepoRoot) {
-		const curDirectory = pathUrl.startsWith('file://')
-			? fileURLToPath(pathUrl)
-			: pathUrl;
-
-		const monorepoRoot = getMonorepoRoot(curDirectory);
+		const monorepoRoot = getMonorepoRoot(pathUrl);
 		if (monorepoRoot === undefined) {
 			throw new Error('Monorepo root not found.');
 		}
 
 		return monorepoRoot;
 	} else {
-		const pathDirectory = path.dirname(fileURLToPath(pathUrl));
+		const pathDirectory = path.dirname(pathUrl);
 		const getPackageJson = (cwd: string) => {
 			const packageJsonPath = pkgUpSync({ cwd });
 			if (packageJsonPath === undefined) {
