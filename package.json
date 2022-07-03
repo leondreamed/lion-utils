@@ -1,7 +1,8 @@
 {
 	"name": "@lion-utils/monorepo",
 	"scripts": {
-		"build": "pnpm recursive run build"
+		"build": "pnpm recursive run build",
+		"prepare": "lionconfig"
 	},
 	"devDependencies": {
 		"@types/node": "^17.0.34",
