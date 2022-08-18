@@ -15,16 +15,27 @@ function getMonorepoRoot(
 		curDirectory = path.dirname(curDirectory);
 	}
 
+	let maybeRoot: string | undefined;
 	while (curDirectory !== '/') {
-		if (
-			fs.existsSync(path.join(curDirectory, 'pnpm-workspace.yaml')) ||
-			fs.existsSync(path.join(curDirectory, 'pnpm-lock.yaml'))
-		) {
+		const pnpmWorkspaceExists = fs.existsSync(
+			path.join(curDirectory, 'pnpm-workspace.yaml')
+		);
+		const pnpmLockExists = fs.existsSync(
+			path.join(curDirectory, 'pnpm-lock.yaml')
+		);
+
+		if (pnpmLockExists) {
+			maybeRoot = curDirectory;
+		}
+
+		if (pnpmWorkspaceExists) {
 			return curDirectory;
 		}
 
 		curDirectory = path.dirname(curDirectory);
 	}
+
+	return maybeRoot;
 }
 
 /**
