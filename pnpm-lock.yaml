@@ -5670,8 +5670,8 @@ packages:
       pkg-dir: 6.0.1
     dev: true
 
-  /lion-utils/0.1.6:
-    resolution: {integrity: sha512-cihQMUsbltfanbQzokut9/St60AVTbmaA/vGwKtjIVofZ6jL745PrOd7UoxE9tPnmWAKVFCZNU/K93VzWi1l3g==}
+  /lion-utils/0.1.8:
+    resolution: {integrity: sha512-sbWjyDz48ODz8AmF5ZD7fJUfOvOBhfoLKZKvw6cdMwPnhVwZXdJ5TICc0AZr+HhhC+U/WmWQszLl/ZJwEIVhnw==}
     dependencies:
       detect-indent: 7.0.1
       dot-prop: 7.2.0
@@ -5731,7 +5731,7 @@ packages:
       is-path-inside: 4.0.0
       lint-staged: 13.0.3
       lion-git-hooks: 1.0.13
-      lion-utils: 0.1.6
+      lion-utils: 0.1.8
       lionp: 1.0.32
       log-symbols: 5.1.0
       markdownlint-cli: 0.32.2
