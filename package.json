@@ -5,8 +5,8 @@
 		"prepare": "lionconfig"
 	},
 	"devDependencies": {
-		"@types/node": "^17.0.34",
-		"lionconfig": "^1.7.19",
-		"typescript": "^4.6.4"
+		"@types/node": "^18.8.5",
+		"lionconfig": "^1.8.11",
+		"typescript": "^4.8.4"
 	}
 }
