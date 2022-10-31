@@ -2,10 +2,12 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as process from 'node:process';
 import { fileURLToPath } from 'node:url';
+
 import { pkgUpSync } from 'pkg-up';
 
 interface GetProjectDirOptions {
 	monorepoRoot?: boolean;
+	throwIfNotFound?: boolean;
 }
 
 function getMonorepoRoot(
@@ -46,14 +48,24 @@ function getMonorepoRoot(
 */
 export function getProjectDir(
 	pathUrl: string,
+	options: GetProjectDirOptions & { throwIfNotFound: true }
+): string;
+export function getProjectDir(
+	pathUrl: string,
 	options?: GetProjectDirOptions
-): string {
+): string | undefined;
+export function getProjectDir(
+	pathUrl: string,
+	options?: GetProjectDirOptions
+): string | undefined {
+	const throwIfNotFound = options?.throwIfNotFound ?? true;
+
 	pathUrl = pathUrl.startsWith('file://') ? fileURLToPath(pathUrl) : pathUrl;
 
 	// If pnpm-lock.yaml doesn't exist in the directory, continue checking in the above directory
 	if (options?.monorepoRoot) {
 		const monorepoRoot = getMonorepoRoot(pathUrl);
-		if (monorepoRoot === undefined) {
+		if (monorepoRoot === undefined && throwIfNotFound) {
 			throw new Error('Monorepo root not found.');
 		}
 
@@ -91,7 +103,13 @@ export function getProjectDir(
 	}
 }
 
-export function chProjectDir(pathUrl: string, options?: GetProjectDirOptions) {
-	const projectPath = getProjectDir(pathUrl, options);
+export function chProjectDir(
+	pathUrl: string,
+	options?: { monorepoRoot?: boolean }
+) {
+	const projectPath = getProjectDir(pathUrl, {
+		...options,
+		throwIfNotFound: true,
+	});
 	process.chdir(projectPath);
 }
