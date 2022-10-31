@@ -48,12 +48,12 @@ function getMonorepoRoot(
 */
 export function getProjectDir(
 	pathUrl: string,
-	options: GetProjectDirOptions & { throwIfNotFound: true }
-): string;
+	options: GetProjectDirOptions & { throwIfNotFound: false }
+): string | undefined;
 export function getProjectDir(
 	pathUrl: string,
 	options?: GetProjectDirOptions
-): string | undefined;
+): string;
 export function getProjectDir(
 	pathUrl: string,
 	options?: GetProjectDirOptions
