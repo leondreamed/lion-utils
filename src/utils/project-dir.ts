@@ -1,6 +1,5 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import * as process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
 import { pkgUpSync } from 'pkg-up';
@@ -10,7 +9,7 @@ interface GetProjectDirOptions {
 	throwIfNotFound?: boolean;
 }
 
-function getMonorepoRoot(
+function getMonorepoRootDirPath(
 	curDirectory: string = process.cwd()
 ): string | undefined {
 	if (fs.statSync(curDirectory).isFile()) {
@@ -46,15 +45,15 @@ function getMonorepoRoot(
 	- If the directory with a package.json does not have a pnpm-lock.yaml, it means that the project is part of a monorepo.
 	- If a monorepo was detected, that means that the base directory must have a pnpm-workspace.yaml file with a `packages` property that has a matching glob entry that matches
 */
-export function getProjectDir(
+export function getProjectDirPath(
 	pathUrl: string,
 	options: GetProjectDirOptions & { throwIfNotFound: false }
 ): string | undefined;
-export function getProjectDir(
+export function getProjectDirPath(
 	pathUrl: string,
 	options?: GetProjectDirOptions
 ): string;
-export function getProjectDir(
+export function getProjectDirPath(
 	pathUrl: string,
 	options?: GetProjectDirOptions
 ): string | undefined {
@@ -64,12 +63,12 @@ export function getProjectDir(
 
 	// If pnpm-lock.yaml doesn't exist in the directory, continue checking in the above directory
 	if (options?.monorepoRoot) {
-		const monorepoRoot = getMonorepoRoot(pathUrl);
-		if (monorepoRoot === undefined && throwIfNotFound) {
+		const monorepoRootDirPath = getMonorepoRootDirPath(pathUrl);
+		if (monorepoRootDirPath === undefined && throwIfNotFound) {
 			throw new Error('Monorepo root not found.');
 		}
 
-		return monorepoRoot;
+		return monorepoRootDirPath;
 	} else {
 		const pathDirectory = path.dirname(pathUrl);
 		const getPackageJson = (cwd: string) => {
@@ -98,18 +97,7 @@ export function getProjectDir(
 			({ packageJson, packageJsonPath } = getPackageJson(upperDirectory));
 		}
 
-		const projectPath = path.dirname(packageJsonPath);
-		return projectPath;
+		const projectDirPath = path.dirname(packageJsonPath);
+		return projectDirPath;
 	}
-}
-
-export function chProjectDir(
-	pathUrl: string,
-	options?: { monorepoRoot?: boolean }
-) {
-	const projectPath = getProjectDir(pathUrl, {
-		...options,
-		throwIfNotFound: true,
-	});
-	process.chdir(projectPath);
 }
